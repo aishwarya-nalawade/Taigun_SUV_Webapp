@@ -20,8 +20,10 @@ def predict_class():
     print([x for x in request.form.values()])
     features=[int(x) for x in request.form.values()] #Maintain input same as the date while training
     with open('scaler.pkl','rb') as file:
-        sst=pickle.load(file)
-        output=clf.predict(sst.transform([features]))
+        #sst=pickle.load(file)
+        #output=clf.predict(sst.transform([features]))
+        scaler = pickle.load(file)
+        output = clf.predict(scaler.transform([features]))
         print(output)
     if output[0]==0:
         return render_template("index.html",pred="The Person will not purchase the SUV")
